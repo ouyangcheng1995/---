@@ -1,0 +1,52 @@
+#􀀀􀀀 Inputs and Intensity 􀀀􀀀
+global R,A,T,e,DeltaFixe ,Theta1 ,Lambda1 ,Lambda2 ,Lambda3 ,
+Distance_Screen
+R=self.SpinBox_nr.value() # Reflection factor (R)
+A=self.SpinBox_na.value() # Absorption factor (A)
+e=self. SpinBox_e.value() * 1.E􀀀6 # Plates distance (e)
+DeltaFixe = 2*self.SpinBox_nt.value()*e
+Theta1= self.SpinBox_angle.value() # Angle of incidence
+Lambda1=self.SpinBox_Lambda1.value()*1.E-9 # 3 wavelengths
+Lambda2=self.SpinBox_Lambda2.value()*1.E-9 # depicting the
+Lambda3=self.SpinBox_Lambda3.value()*1.E-9 # RGB color
+Distance_Screen = 1 # Screen distance (m)
+A0=1
+Theta0=0
+T=1􀀀R􀀀A
+Imax = (A0*T/(1􀀀R*2
+M = 4*R/(1􀀀R)**2
+N=5000
+Theta=linspace(Theta0 ,Theta1 ,N)
+Delta = DeltaFixe*cos(Theta)
+Order1 = Delta/Lambda1
+phi_B = 2*pi*Order1
+I_B = Imax/(1+M*(sin(0.5*phi_B))**2)
+Order2 = Delta/Lambda2
+phi_G = 2***pi**Order2
+I_G = Imax/(1+M*(sin(0.5*phi_G**2)
+Order3 = Delta/Lambda3
+phi_R = 2*pi*Order3
+I_R = Imax/(1+M*(sin(0.5*phi_R))*2)
+Epsilon = 5.E􀀀4 # Graph with wavenumber abscissa
+LambdaMin = (1 􀀀 Epsilon)*Lambda3
+LambdaMax = (1 + Epsilon)*Lambda1
+Sigma1=1/Lambda1
+Sigma2=1/Lambda2
+Sigma3=1/Lambda3
+SigmaMax = 1/LambdaMin
+SigmaMin = 1/LambdaMax
+step = (SigmaMax 􀀀SigmaMin )/N
+Sigma = linspace(SigmaMin , SigmaMax , N)
+phi_int = 2*pi* DeltaFixe*Sigma
+Intens = Imax/(1+M*(sin(0.5*phi_int))**2)
+X1,X2,X3=[],[],[]
+for i in range(N):
+if Sigma[i]<= Sigma1 <Sigma[i]+step:
+x1 = i
+X1.append(x1)
+if Sigma[i]<= Sigma2 <Sigma[i]+step:
+x2 = i
+X2.append(x2)
+if Sigma[i]<= Sigma3 <Sigma[i]+step:
+x3 = i
+X3.append(x3)
